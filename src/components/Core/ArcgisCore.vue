@@ -18,10 +18,10 @@ export default class ArcgisCore extends Vue {
     return new Promise(resolve => {
       this.map = Map({
         layers: [
-          // new VectorTileLayer({
-          //   id: "LAYER_IMAGE",
-          //   url: LAYER_IMAGE
-          // })
+          new VectorTileLayer({
+            id: "LAYER_IMAGE",
+            url: LAYER_IMAGE
+          })
         ],
         // spatialReference: { latestWkid: 3857, wkid: 102100 }
       });
