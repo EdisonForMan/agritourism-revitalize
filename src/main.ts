@@ -5,7 +5,13 @@ import router from './router'
 import store from './store'
 import { ARCGIS_OPTION } from "./config";
 import { loadModules } from "esri-loader";
+import VueAwesomeSwiper from 'vue-awesome-swiper'
+import 'swiper/css/swiper.css'
+
+Vue.use(VueAwesomeSwiper, /* { default options with global component } */)
+
 Vue.config.productionTip = false;
+
 //  ARCGIS_API
 loadModules([
   "esri/Map",

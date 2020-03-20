@@ -8,9 +8,9 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from "vue-property-decorator";
-import { doHello, labelValue } from "./Revitalize";
+// import { doHello, labelValue } from "./Revitalize";
 @Component({
-  methods: { doHello }
+  // methods: { doHello }
 })
 export default class HelloWorld extends Vue {
   //  props
@@ -28,16 +28,6 @@ export default class HelloWorld extends Vue {
   @Watch("extra")
   public onExtraChange(n: string): void {
     console.log("[change]", n);
-  }
-  //  mounted
-  mounted(): void {
-    doHello(this, "x");
-    this.showLabel(this.labelSymbol);
-  }
-  //  methods
-  showLabel(labelSymbol: labelValue): void {
-    const { doVal } = labelSymbol;
-    doVal("new label");
   }
 }
 </script>
