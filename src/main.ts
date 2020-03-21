@@ -3,31 +3,21 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import { ARCGIS_OPTION } from "./config";
-import { loadModules } from "esri-loader";
+import { arcgisApi } from "./arcgisApi";
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 import 'swiper/css/swiper.css'
 
-Vue.use(VueAwesomeSwiper, /* { default options with global component } */)
+Vue.use(VueAwesomeSwiper)
 
-Vue.config.productionTip = false;
-
-//  ARCGIS_API
-loadModules([
-  "esri/Map",
-  "esri/views/MapView",
-  "esri/widgets/Legend",
-  "esri/layers/VectorTileLayer",
-  "esri/layers/TileLayer",
-  "esri/layers/FeatureLayer",
-  "esri/layers/MapImageLayer"
-], ARCGIS_OPTION).then(([Map, MapView, Legend, VectorTileLayer, TileLayer, FeatureLayer, MapImageLayer]) => {
-  Vue.prototype.$ARCGIS_API = { Map, MapView, Legend, VectorTileLayer, TileLayer, FeatureLayer, MapImageLayer };
+arcgisApi((object: any) => {
+  Vue.prototype.$ARCGIS_API = object;
+  Vue.prototype.$hub = new Vue; //  全局事件线程
   const $vue: JSX.ElementClass = new Vue({
     router,
     store,
     render: h => h(App)
   }).$mount('#app');
   (Window as any).$vue = $vue;
-});
+})
 
+Vue.config.productionTip = false;

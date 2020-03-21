@@ -1,19 +1,19 @@
 <template>
-  <div class="revitalize_map" :id="MapId" />
+  <div class="revitalize_project" :id="MapId" />
 </template>
 
 <script lang="ts">
 import { Component, Mixins } from "vue-property-decorator";
 import ArcgisCore from "@/components/Core/ArcgisCore.vue";
-import { doMassMap } from "./Arcgis";
+import { doMassMap } from "./ArcgisProject";
 @Component({
   methods: { doMassMap }
 })
-export default class Arcgis extends Mixins(ArcgisCore) {
+export default class ArcgisProject extends Mixins(ArcgisCore) {
   protected id: number = +new Date();
   //    Getter/
   get MapId(): string {
-    return "arcgis_" + this.id;
+    return "arcgisProject_" + this.id;
   }
   //  mounted
   async mounted(): Promise<void> {
@@ -24,7 +24,7 @@ export default class Arcgis extends Mixins(ArcgisCore) {
 </script>
 
 <style scoped lang="less">
-.revitalize_map {
+.revitalize_project {
   height: 100%;
 }
 </style>

@@ -1,34 +1,41 @@
 <template>
   <div class="revitalize_left">
     <div>
-      <header>
-        <i>示范带总览</i>
-        <i>/ THE OVERVIEW</i>
-      </header>
-      <ul>
-        <li v-for="(item,index) in options.overview" :key="index">- {{item}}</li>
-      </ul>
+      <div>
+        <header>
+          <i>示范带总览</i>
+        </header>
+        <ul>
+          <li v-for="(item,index) in options.overview" :key="index">- {{item}}</li>
+        </ul>
+      </div>
     </div>
     <div>
-      <header>
-        <i>投资增长趋势</i>
-        <i>/ GROWTH TREND</i>
-      </header>
-      <chartCore :option="options['rise']" :chartId="options['rise'].name+(+new Date())" />
+      <div>
+        <header>
+          <i>平台用户增长趋势(人)</i>
+        </header>
+        <chartCore :option="options['rise']" :chartId="options['rise'].name+(+new Date())" />
+      </div>
     </div>
     <div>
-      <header>
-        <i>项目类型统计</i>
-        <i>/ TYPES OF STANTISTICAL</i>
-      </header>
-      <chartCore :option="options['project']" :chartId="options['project'].name+(+new Date())" />
+      <div>
+        <header>
+          <i>项目类型统计</i>
+        </header>
+        <chartCore :option="options['project']" :chartId="options['project'].name+(+new Date())" />
+      </div>
     </div>
     <div>
-      <header>
-        <i>喜好分析-用户</i>
-        <i>/ PREFERENCES</i>
-      </header>
-      <chartCore :option="options['preference']" :chartId="options['preference'].name+(+new Date())" />
+      <div>
+        <header>
+          <i>喜好分析-用户</i>
+        </header>
+        <chartCore
+          :option="options['preference']"
+          :chartId="options['preference'].name+(+new Date())"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -68,53 +75,66 @@ export default class RevitalizeLeftPanel extends Vue {
 .revitalize_left {
   width: 380px;
   position: fixed;
-  bottom: 80px;
-  top: 100px;
-  left: 20px;
+  bottom: 40px;
+  top: 88px;
+  left: 40px;
+
   > div {
     position: relative;
     height: 25%;
     box-sizing: border-box;
-    overflow: hidden;
-    margin: 10px 0;
-    border-radius: 40px;
-    display: flex;
-    flex-direction: column;
-    background-color: #fff;
-    box-shadow: 0px 6px 15px #676767;
-    padding: 0 10px;
-    > header {
-      line-height: 50px;
-      text-align: left;
-      height: 50px !important;
-      box-sizing: border-box;
-      padding-left: 10px;
-      i {
-        font-style: normal;
-      }
-      i:first-child {
-        font-size: 20px;
-        font-weight: bold;
-        color: #000;
-      }
-      i:last-child {
-        margin-left: 6px;
-        font-size: 12px;
-        color: rgba(0, 0, 0, 0.3);
-      }
+    padding-top: 30px;
+    > div::before {
+      content: "";
+      position: absolute;
+      display: block;
+      bottom: 0;
+      left: -24px;
+      width: 50px;
+      height: 110%;
+      background: url(../../imgs/border.png);
+      background-size: 100% 100%;
     }
     > div {
-      flex: 1;
-    }
-    > ul {
-      text-align: left;
-      flex: 1;
+      position: relative;
+      border-radius: 20px;
+      background-color: #fff;
+      box-shadow: 0px 6px 15px #676767;
+      padding: 0 10px 0 20px;
+      height: 100%;
       box-sizing: border-box;
-      padding: 10px 0;
-      > li {
-        height: 20%;
-        color: rgba(0, 0, 0, 0.7);
-        cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      > header {
+        line-height: 46px;
+        text-align: left;
+        height: 40px !important;
+        box-sizing: border-box;
+        padding-left: 14px;
+        i {
+          font-style: normal;
+        }
+        i:first-child {
+          font-size: 20px;
+          font-weight: bold;
+          color: #000;
+        }
+      }
+      > div {
+        flex: 1;
+      }
+      > ul {
+        text-align: left;
+        flex: 1;
+        box-sizing: border-box;
+        padding: 0px 0 10px 2px;
+        list-style: none;
+        > li {
+          height: 20%;
+          color: rgba(0, 0, 0, 0.7);
+          cursor: pointer;
+          overflow: hidden;
+        }
       }
     }
   }

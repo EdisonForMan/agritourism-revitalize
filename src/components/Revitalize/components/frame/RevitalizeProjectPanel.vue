@@ -1,12 +1,9 @@
 <template>
-  <div class="revitalize_detail">
+  <div class="revitalize_project">
     <header>{{title}}</header>
     <div class="video"></div>
     <div class="imgs">
       <header>项目风采</header>
-    </div>
-    <div class="future">
-      <header>未来蓝图</header>
     </div>
     <div class="text">
       <header>景点简介</header>
@@ -28,7 +25,7 @@
 import { Component, Vue, Prop } from "vue-property-decorator";
 
 @Component({})
-export default class RevitalizeDeatilPanel extends Vue {
+export default class RevitalizeProjectPanel extends Vue {
   private title = "雁楠逸园";
   @Prop({ default: "test" }) private text!: string;
   @Prop({
@@ -47,12 +44,12 @@ export default class RevitalizeDeatilPanel extends Vue {
 </script>
 
 <style scoped lang="less">
-.revitalize_detail {
+.revitalize_project {
   width: 380px;
   position: fixed;
   bottom: 40px;
   top: 100px;
-  right: 20px;
+  right: 40px;
   background-color: #fff;
   box-shadow: 0px 6px 15px #676767;
   border-radius: 40px;
@@ -62,6 +59,11 @@ export default class RevitalizeDeatilPanel extends Vue {
   display: flex;
   flex-direction: column;
   > div {
+    display: flex;
+    flex-direction: column;
+    > div {
+      flex: 1;
+    }
     > header {
       font-size: 18px;
       font-weight: bold;
@@ -104,6 +106,7 @@ export default class RevitalizeDeatilPanel extends Vue {
     box-sizing: border-box;
     padding: 10px 0;
     display: flex;
+    flex-direction: unset;
     font-size: 14px;
     > img {
       width: 160px;

@@ -1,11 +1,14 @@
 <template>
   <div class="revitalize_scroll">
     <swiper ref="mySwiper">
-      <swiper-slide v-for="(item,index) in FixedBottomArray" :key="index">
+      <swiper-slide v-for="(item,index) in FixedSfdData" :key="index">
         <ul :class="`swiper_ul swiper_ul_${index}`">
-          <li v-for="({label},index) in item" :key="index">
-            <div :class="[!index?`active`:``,`bottomsingle`]">
-              <div class="label">{{label}}</div>
+          <li v-for="({sfdName,img},index) in item" :key="index" @click="goSfd(key,index)">
+            <div
+              :class="[index == activeIndex?`active`:``,`bottomsingle`]"
+              :style="{backgroundImage:`url(${img})`}"
+            >
+              <div class="label">{{sfdName}}</div>
             </div>
           </li>
         </ul>
@@ -17,18 +20,36 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { State } from "vuex-class";
-
 @Component({})
 export default class RevitalizeHeader extends Vue {
-  @State("bottomArray") stateBottomArray!: JSX.BottomSingle[];
-  get FixedBottomArray(): Array<JSX.BottomSingle[]> {
+  private activeIndex = 0;
+  private activeSfd?: JSX.ScrollSfd;
+  @State("sfdData") stateSfdData!: JSX.ScrollSfd;
+  get FixedSfdData(): Array<JSX.ScrollSfd> {
     const arr: Array<any> = [];
-    this.stateBottomArray.map((item: JSX.BottomSingle, index: number) => {
+    const _arr_: Array<any> = Object.keys(this.stateSfdData).map(
+      (item: string) => {
+        return {
+          sfdName: item,
+          img: this.stateSfdData[item].imgs[0]
+        };
+      }
+    );
+    _arr_.map((item: JSX.BottomSingle, index: number) => {
       const _index_ = Math.floor(index / 4);
       !arr[_index_] && (arr[_index_] = []);
       arr[_index_].push(item);
     });
     return arr;
+  }
+  //  created
+  created() {
+    this.activeSfd = this.FixedSfdData[this.activeIndex];
+  }
+  private goSfd(label: string, index: number) {
+    this.activeIndex = index;
+    const { $hub } = this as any;
+    $hub.$emit("sfd-dom", label);
   }
 }
 </script>
@@ -43,8 +64,9 @@ export default class RevitalizeHeader extends Vue {
   left: 50%;
   transform: translateX(-50%);
   z-index: 2;
-  width: 800px;
+  width: 900px;
   .swiper_ul {
+    text-align: center;
     li {
       display: inline-block;
       width: 25%;
@@ -62,19 +84,22 @@ export default class RevitalizeHeader extends Vue {
         height: 100%;
         border-radius: 40px 0;
         overflow: hidden;
-        background-color: rgba(255,255,255,0.6);
+        background-color: rgba(255, 255, 255, 0.6);
+        background-size: cover;
         .label {
-          width: 54px;
-          height: 100%;
+          position: absolute;
+          bottom: 0px;
+          width: 100%;
+          height: 40px;
           text-align: center;
-          line-height: 54px;
-          font-size: 16px;
+          sfd-height: 40px;
+          font-size: 18px;
           color: #fff;
           overflow: hidden;
-          padding-top: 4px;
-          background: -webkit-linear-gradient(top, gold, rgba(0, 0, 0, 0));
-          writing-mode: vertical-lr;
-          writing-mode: tb-lr;
+          // padding-top: 4px;
+          // background: -webkit-sfdar-gradient(top, gold, rgba(0, 0, 0, 0));
+          // writing-mode: vertical-lr;
+          // writing-mode: tb-lr;
         }
       }
     }

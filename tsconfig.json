@@ -11,7 +11,7 @@
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
     "baseUrl": ".",
-    // @types 存放第三方库d.ts声明 add by eds 
+    // @types 存放第三方库d.ts声明 add by eds
     "types": ["webpack-env", "node_modules/@types"],
     "paths": {
       "@/*": ["src/*"]

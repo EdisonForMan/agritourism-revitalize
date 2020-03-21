@@ -1,12 +1,13 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { bottomArray } from "@/Mock/bottom";
-
+import { projectData } from "@/components/Revitalize/data/project_data";
+import { sfdData } from "@/components/Revitalize/data/sfd_data"
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    bottomArray
+    projectData,
+    sfdData
   },
   mutations: {
   },

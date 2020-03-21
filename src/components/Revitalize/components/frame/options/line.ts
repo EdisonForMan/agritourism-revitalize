@@ -1,7 +1,7 @@
 import echarts from 'echarts';
 const riseData = {
-    x: [2015, 2016, 2017, 2018, 2019, 2020],
-    s: [2, 20, 14, 50, 2, 20,]
+    x: ["2019.9", "2019.10", "2019.11", "2019.12", "2020.1", "2020.2", "2020.3"],
+    s: [231, 478, 604, 1349, 209, 21, 38]
 }
 const riseOption = {
     name: '投资增长趋势',
@@ -9,7 +9,13 @@ const riseOption = {
         top: 20,
         left: 35,
         bottom: 30,
-        right: 20
+        right: 20,
+    },
+    tooltip: {
+        trigger: "axis",
+        axisPointer: {
+            type: "shadow"
+        }
     },
     xAxis: {
         type: 'category',
@@ -32,7 +38,7 @@ const riseOption = {
     },
     yAxis: {
         type: 'value',
-        splitLine: {    
+        splitLine: {
             show: true,
             lineStyle: {
                 color: 'rgba(50,205,50,0.6)',
@@ -57,10 +63,10 @@ const riseOption = {
                 normal: { //颜色渐变函数 前四个参数分别表示四个位置依次为左、下、右、上
                     color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
                         offset: 0,
-                        color: 'rgba(255,215,0,0.8)' // 0% 处的颜色
+                        color: 'rgba(81, 227, 35, 1)' // 0% 处的颜色
                     }, {
                         offset: 1,
-                        color: 'rgba(255,215,0,0)' // 100% 处的颜色
+                        color: 'rgba(244, 244, 58, 1)' // 100% 处的颜色
                     }]), //背景渐变色
                     // lineStyle: { // 系列级个性化折线样式
                     //     width: 0.5,
@@ -76,4 +82,5 @@ const riseOption = {
             data: riseData.s
         }]
 };
+
 export { riseOption }

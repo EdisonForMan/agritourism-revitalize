@@ -1,9 +1,9 @@
 const ratioData = [
-  { value: 33.21, name: "亲子" },
-  { value: 21.72, name: "农耕" },
-  { value: 18.21, name: "节气" },
-  { value: 16.51, name: "观赏" },
-  { value: 10.21, name: "网红" }
+  { value: 24.0, name: "亲子", count: 17192 },
+  { value: 12.5, name: "农耕", count: 8973 },
+  { value: 17.1, name: "节气", count: 12294 },
+  { value: 16.0, name: "观赏", count: 11500 },
+  { value: 30.4, name: "网红", count: 21778 }
 ];
 const indicator: any[] = [];
 const showData: any[] = [];
@@ -17,9 +17,10 @@ export const radarOption = {
   grid: {
     top: 20,
     left: 35,
-    bottom: 30,
+    bottom: 35,
     right: 20
   },
+  tooltip: {},
   radar: {
     right: "center",
     indicator,
@@ -30,23 +31,22 @@ export const radarOption = {
       show: true,
       lineStyle: {
         opacity: 1,
-        color: "rgba(60,179,113,1)"
       }
     },
     axisLine: {
       lineStyle: {
-        color: "rgba(60,179,113,1)"
       }
     }
   },
   series: [
     {
+      name: "喜好分析",
       type: "radar",
       symbolSize: 0.1,
       areaStyle: {
         normal: {
           opacity: 0.6,
-          color: "rgba(50,205,50,1)"
+          color: "rgba(0,115,247,1)"
         }
       },
       lineStyle: {

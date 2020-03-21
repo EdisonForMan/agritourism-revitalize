@@ -12,6 +12,9 @@ declare global {
     //  echart option
     interface ChartOption { xAxis: any[], yAxis?: any[], series: any[], color?: string[] }
     //  mock data
-    interface BottomSingle { label: string }
+    interface BottomSingle { sfdName: string, videos: string[], imgs: string[] }
+    interface ScrollSfd {
+      [elem: string]: BottomSingle
+    }
   }
 }
