@@ -26,8 +26,8 @@ import { Component, Vue } from "vue-property-decorator";
 import { State } from "vuex-class";
 @Component({})
 export default class RevitalizeHeader extends Vue {
-  private activeSIndex = 0;
-  private activeFIndex = 0;
+  private activeSIndex = 0; //  swiper
+  private activeFIndex = 0; //  swiper-single
   private activeSfd?: JSX.ScrollSfd;
   @State("sfdData") stateSfdData!: JSX.ScrollSfd;
   get FixedSfdData(): Array<JSX.ScrollSfd> {
