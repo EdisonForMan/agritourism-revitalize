@@ -19,7 +19,6 @@ import { LAYER_DTFW, LAYER_SFD } from "@/config/index";
  */
 function doMassQuery(context: JSX.ElementClass, point?: MapPoint): Promise<boolean> {
     return new Promise(resolve => {
-        point && console.log(point);
         const { $ARCGIS_API, view, $hub } = (context as any);
         const { IdentifyTask, IdentifyParameters } = $ARCGIS_API;
         const identifyTask = new IdentifyTask(LAYER_SFD);

@@ -5,8 +5,8 @@ const ratioData = [
   { value: 16.0, name: "观赏", count: 11500 },
   { value: 30.4, name: "网红", count: 21778 }
 ];
-const indicator: any[] = [];
-const showData: any[] = [];
+const indicator: Array<any> = [];
+const showData: Array<any> = [];
 ratioData.map(item => {
   indicator.push({ name: item.name, max: 35 });
   showData.push(Number(item.value));

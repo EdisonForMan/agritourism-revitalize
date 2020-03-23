@@ -10,7 +10,7 @@ declare global {
       [elem: string]: any;
     }
     //  echart option
-    interface ChartOption { xAxis: any[], yAxis?: any[], series: any[], color?: string[] }
+    interface ChartOption { xAxis: Array<any>, yAxis?: Array<any>, series: Array<any>, color?: string[] }
     //  mock data
     interface BottomSingle { sfdName: string, videos: string[], imgs: string[] }
     interface ScrollSfd {

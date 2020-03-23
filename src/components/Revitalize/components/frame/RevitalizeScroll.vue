@@ -3,9 +3,13 @@
     <swiper ref="mySwiper">
       <swiper-slide v-for="(item,index) in FixedSfdData" :key="index">
         <ul :class="`swiper_ul swiper_ul_${index}`">
-          <li v-for="({sfdName,img},index) in item" :key="index" @click="goSfd(key,index)">
+          <li
+            v-for="({sfdName,img},_index) in item"
+            :key="_index"
+            @click="goSfd(sfdName,index,_index)"
+          >
             <div
-              :class="[index == activeIndex?`active`:``,`bottomsingle`]"
+              :class="[index == activeSIndex && _index == activeFIndex?`active`:``,`bottomsingle`]"
               :style="{backgroundImage:`url(${img})`}"
             >
               <div class="label">{{sfdName}}</div>
@@ -22,7 +26,8 @@ import { Component, Vue } from "vue-property-decorator";
 import { State } from "vuex-class";
 @Component({})
 export default class RevitalizeHeader extends Vue {
-  private activeIndex = 0;
+  private activeSIndex = 0;
+  private activeFIndex = 0;
   private activeSfd?: JSX.ScrollSfd;
   @State("sfdData") stateSfdData!: JSX.ScrollSfd;
   get FixedSfdData(): Array<JSX.ScrollSfd> {
@@ -44,12 +49,15 @@ export default class RevitalizeHeader extends Vue {
   }
   //  created
   created() {
-    this.activeSfd = this.FixedSfdData[this.activeIndex];
+    this.activeSfd = this.FixedSfdData[
+      this.activeSIndex * 4 + this.activeFIndex
+    ];
   }
-  private goSfd(label: string, index: number) {
-    this.activeIndex = index;
+  private goSfd(sfdName: string, index: number, _index: number) {
+    this.activeSIndex = index;
+    this.activeFIndex = _index;
     const { $hub } = this as any;
-    $hub.$emit("sfd-dom", label);
+    $hub.$emit("sfd-dom", sfdName);
   }
 }
 </script>
@@ -73,33 +81,34 @@ export default class RevitalizeHeader extends Vue {
       height: 140px;
       vertical-align: top;
       .box();
-      padding: 0 10px 10px 10px;
+      padding: 0 10px 20px 10px;
       .active {
         border: 2px gold solid;
+        box-shadow: 0px -20px 10px rgba(241, 245, 27, 0.65) inset,
+          0px 6px 10px rgba(0, 0, 0, 0.5) !important;
       }
       > .bottomsingle {
         position: relative;
-        box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.5);
+        box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.5);
         .box();
         height: 100%;
-        border-radius: 40px 0;
+        border-radius: 20px 0;
         overflow: hidden;
         background-color: rgba(255, 255, 255, 0.6);
-        background-size: cover;
+        background-size: 100% 100%;
         .label {
           position: absolute;
           bottom: 0px;
           width: 100%;
-          height: 40px;
+          height: 34px;
+          line-height: 34px;
+          padding: 0 14px;
           text-align: center;
-          sfd-height: 40px;
           font-size: 18px;
           color: #fff;
+          box-sizing: border-box;
+          white-space: normal;
           overflow: hidden;
-          // padding-top: 4px;
-          // background: -webkit-sfdar-gradient(top, gold, rgba(0, 0, 0, 0));
-          // writing-mode: vertical-lr;
-          // writing-mode: tb-lr;
         }
       }
     }
