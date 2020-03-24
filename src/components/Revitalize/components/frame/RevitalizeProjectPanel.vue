@@ -125,11 +125,13 @@ export default class RevitalizeProjectPanel extends Vue {
     color: #fff;
     .back {
       position: absolute;
-      top: 8px;
+      top: 10px;
       right: 20px;
-      height: 24px;
-      width: 50px;
+      height: 26px;
+      width: 60px;
       background-color: rgba(0, 0, 0, 0.5);
+      background: url(../../imgs/back.png);
+      background-size: 100% 100%;
       border-radius: 4px;
       cursor: pointer;
     }
