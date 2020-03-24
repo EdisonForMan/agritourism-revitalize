@@ -16,5 +16,9 @@ declare global {
     interface ScrollSfd {
       [elem: string]: BottomSingle
     }
+    //  esri Interface
+    interface EsriObject {
+      [elem: string]: any
+    }
   }
 }

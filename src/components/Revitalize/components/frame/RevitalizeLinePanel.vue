@@ -1,47 +1,76 @@
 <template>
   <div class="revitalize_line">
-    <div class="top">{{company}}</div>
+    <div class="bottom">{{company}}</div>
     <header>{{title}}</header>
-    <div class="data">
-      <div>
-        <header>投入建设金额</header>
+    <div class="container">
+      <div class="text">
+        <header>基本概况</header>
         <div>
-          <div class="blue">8881万</div>
+          <div class="video">
+            <video />
+            <div>项目与2020年6月建成</div>
+          </div>
+          <ul class="text_ul">
+            <li>
+              <p>项目名称</p>
+              <p>山水雁楠跨区域示范带</p>
+            </li>
+            <li>
+              <p>投资总额</p>
+              <p>该项目计划投资1.2亿元，已完成投资3500万元</p>
+            </li>
+            <li>
+              <p>长度及范围</p>
+              <p>17.2km，覆盖15个村，南起岩头镇，北至巨坑村，东到上美村。</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="data">
+        <header>投资及效益</header>
+        <div>
           <div>
-            <span>同比增长</span>
-            <span>+18.26%</span>
+            <header>实现投资-2019年</header>
+            <div>
+              <div class="blue">8881万</div>
+              <div>
+                <span>同比增长</span>
+                <span>+18.26%</span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <header>产出效益-2019年</header>
+            <div>
+              <div class="green">8881万</div>
+              <div>
+                <span>同比增长</span>
+                <span>+18.26%</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      <div>
-        <header>投入建设金额</header>
-        <div>
-          <div class="green">8881万</div>
-          <div>
-            <span>同比增长</span>
-            <span>+18.26%</span>
-          </div>
-        </div>
+      <div class="kind">
+        <header>项目类别统计(个)</header>
+        <chartCore :option="option" :chartId="option.name+(+new Date())" />
       </div>
-    </div>
-    <div class="video"></div>
-    <div class="text">
-      <header>示范带简介</header>
-    </div>
-    <div class="kind">
-      <header>项目类别统计(个)</header>
-      <chartCore :option="option" :chartId="option.name+(+new Date())" />
-    </div>
-    <div class="project">
-      <header>精品项目</header>
-      <ul class="projectList">
-        <li>
-          <span>项目名称</span>
-          <span>建设状态</span>
-          <span>县区</span>
-          <span>投资金额</span>
-        </li>
-      </ul>
+      <div class="project">
+        <header>精品项目</header>
+        <ul class="projectList">
+          <li>
+            <img />
+            <div>
+              <header>
+                <i>过路滩滨水乐园</i>
+                <span class="ing">建设中</span>
+              </header>
+              <p>投资金额：255万元</p>
+              <p>此项目位于永嘉县过路滩村，特色项目有玻璃 栈道，青少年高尔夫训练场</p>
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
@@ -49,15 +78,15 @@
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator";
 import ChartCore from "@/components/Core/ChartCore.vue";
-import { projectBarOption } from "./options/bar";
+import { projectOption } from "./options/pie";
 
 @Component({
   components: { ["chartCore"]: ChartCore }
 })
 export default class RevitalizeLinePanel extends Vue {
   private title = "山水雁楠跨区域示范带";
-  private company = "温州市农业农村局主办 温州市设计集团技术支持";
-  private option = projectBarOption;
+  private company = "温州市农业农村局 建设 温州市设计集团 技术支持";
+  private option = projectOption;
 }
 </script>
 
@@ -65,147 +94,244 @@ export default class RevitalizeLinePanel extends Vue {
 .revitalize_line {
   width: 420px;
   position: fixed;
-  bottom: 40px;
+  bottom: 70px;
   top: 0px;
   right: 40px;
   background-color: #fff;
   box-shadow: 0px 6px 15px #676767;
-  border-radius: 40px;
-  box-sizing: border-box;
-  margin-top: 60px;
-  padding: 10px;
-  padding-left: 20px;
+  border-radius: 20px;
+  margin-top: 80px;
   display: flex;
   flex-direction: column;
-  > div {
-    display: flex;
-    flex-direction: column;
-    height: auto;
-    margin-bottom: 10px;
-    > div {
-      flex: 1;
-    }
-    > header {
-      font-size: 18px;
-      font-weight: bold;
-      text-align: left;
-    }
-  }
   > header {
+    position: relative;
+    background-image: url(../../imgs/title.png);
+    background-repeat: no-repeat;
     font-size: 20px;
     font-weight: bold;
-    line-height: 50px;
+    line-height: 40px;
     text-align: left;
-    color: #000;
-    height: 50px !important;
+    height: 40px !important;
     box-sizing: border-box;
-  }
-  .top {
-    margin-bottom: 0px;
-    position: fixed;
-    top: 0;
-    right: 40px;
-    height: 30px;
-    width: 420px;
-    border-radius: 0 0 30px 30px;
-    background: #0073f8;
-    text-align: center;
-    line-height: 30px;
+    padding-left: 12px;
     color: #fff;
   }
-  .data {
-    display: block;
+  /** 建设单位 */
+  .bottom {
+    margin-bottom: 0px;
+    position: fixed;
+    bottom: 20px;
+    right: 40px;
+    height: 34px;
+    width: 420px;
+    border-radius: 17px;
+    background: linear-gradient(to bottom, #3cd45b, #0b622d) !important;
+    text-align: center;
+    line-height: 34px;
+    color: #fff;
+  }
+  > .container {
+    margin-top: 8px;
+    box-sizing: border-box;
+    padding: 0px 12px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
     > div {
-      vertical-align: top;
+      display: flex;
+      flex-direction: column;
+      height: auto;
+      margin-bottom: 6px;
+      margin-top: 2px;
       text-align: left;
-      display: inline-block;
-      width: 50%;
-      header {
-        font-size: 18px;
-        height: 36px;
-        line-height: 36px;
-        font-weight: bold;
+      > header:before {
+        content: "";
+        width: 20px;
+        height: 12px;
+        display: block;
+        position: absolute;
+        right: -22px;
+        top: 2px;
+        background-image: url(../../imgs/leaf.png);
+        background-size: cover;
       }
-      > div {
+      > header {
+        display: inline-block;
+        font-size: 18px;
+        font-weight: bold;
+        text-align: left;
+        line-height: 30px;
+        height: 30px;
+        color: rgba(26, 147, 74, 1);
+        position: relative;
+        width: max-content;
+      }
+    }
+    /** 基本概况 */
+    .text {
+      .video {
+        width: 100%;
+        height: 120px;
+        border-radius: 12px;
+        background-color: rgba(0, 0, 0, 0.1);
+        position: relative;
+        box-shadow: 0px -5px 15px 0px rgba(0, 0, 0, 0.45) inset;
+        margin-bottom: 6px;
+        > video {
+          height: 100%;
+          width: 100%;
+        }
         > div {
-          display: inline-block;
+          position: absolute;
+          bottom: 0;
+          left: 20px;
+          right: 0px;
+          line-height: 30px;
           text-align: left;
-          height: 60px;
-          line-height: 60px;
-          vertical-align: top;
+          color: #fff;
         }
-        .blue {
-          color: rgba(8, 117, 244, 1);
-        }
-        .green {
-          color: rgba(22, 217, 120, 1);
-        }
-        > div:first-child {
-          width: 110px;
-          font-size: 26px;
-          font-family: Tahoma;
-        }
-        > div:last-child {
-          width: 85px;
-          line-height: unset;
-          box-sizing: border-box;
-          padding-top: 10px;
-          > span {
+      }
+      .text_ul {
+        list-style: none;
+        li {
+          text-align: left;
+          p:first-child {
             display: inline-block;
-            width: 100%;
-            height: 20px;
-            line-height: 20px;
-            font-size: 12px;
+            padding: 0 6px;
+            height: 24px;
+            line-height: 26px;
+            color: #000;
+            background-color: rgba(26, 147, 74, 0.1);
+            border-radius: 12px;
           }
-          > span:first-child {
-            color: rgba(153, 153, 153, 1);
-          }
-          > span:last-child {
-            color: rgba(17, 17, 17, 1);
+          p:last-child {
+            margin-top: 2px;
+            color: rgba(102, 102, 102, 1);
+            line-height: 24px;
           }
         }
       }
     }
-  }
-  .video {
-  }
-  .text {
-  }
-  .kind {
-    height: 200px;
-  }
-  .project {
-    .projectList {
-      list-style: none;
-      margin-top: 10px;
-      > li:first-child {
-        background-color: rgba(248, 248, 248, 1);
-        > span {
-          color: rgba(102, 102, 102, 1) !important;
+    /** 投资及效益 */
+    .data {
+      display: block;
+      border: 1pt rgba(146, 199, 149, 1) dashed;
+      border-left: 0;
+      border-right: 0;
+      padding: 10px 0;
+      > div {
+        > div:last-child {
+          border-right: 0;
+          padding-left: 16px;
+        }
+        > div {
+          vertical-align: top;
+          text-align: left;
+          display: inline-block;
+          width: 50%;
+          box-sizing: border-box;
+          border-right: 1pt rgba(146, 199, 149, 1) dashed;
+          header {
+            font-size: 18px;
+            height: 36px;
+            line-height: 36px;
+            font-weight: bold;
+          }
+          > div {
+            > div {
+              display: inline-block;
+              text-align: left;
+              height: 40px;
+              line-height: 40px;
+              vertical-align: top;
+            }
+            .blue {
+              color: rgba(37, 151, 248, 1);
+            }
+            .green {
+              color: rgba(248, 118, 37, 1);
+            }
+            > div:first-child {
+              width: 90px;
+              font-size: 26px;
+              font-family: Tahoma;
+            }
+            > div:last-child {
+              width: 60px;
+              line-height: unset;
+              box-sizing: border-box;
+              > span {
+                display: inline-block;
+                width: 100%;
+                height: 20px;
+                line-height: 20px;
+                font-size: 12px;
+              }
+              > span:first-child {
+                color: rgba(153, 153, 153, 1);
+              }
+              > span:last-child {
+                color: rgba(17, 17, 17, 1);
+              }
+            }
+          }
         }
       }
-      > li {
-        box-sizing: border-box;
-        padding: 0 10px;
-        color: rgba(51, 51, 51, 1);
-        height: 30px;
-        line-height: 30px;
-        text-align: left;
-        > span {
-          display: inline-block;
-          vertical-align: top;
-        }
-        > span {
-          width: 75px;
-          text-align: center;
-        }
-        > span:first-child {
-          width: 125px;
-          text-align: left;
-        }
-        > span:nth-child(2),
-        span:nth-child(3) {
-          color: rgba(193, 193, 193, 1);
+    }
+    /** 项目类型占比 */
+    .kind {
+      height: 180px;
+      display: flex;
+      flex-direction: column;
+    }
+    /** 建设项目列表 */
+    .project {
+      flex: 1;
+      .projectList::-webkit-scrollbar {
+        display: none;
+      }
+      .projectList {
+        list-style: none;
+        flex: 1;
+        overflow-y: auto;
+        > li {
+          box-sizing: border-box;
+          padding: 10px 0;
+          display: flex;
+          flex-direction: unset;
+          font-size: 14px;
+          > img {
+            width: 160px;
+            height: 100px;
+            border-radius: 20px;
+            overflow: hidden;
+          }
+          > div {
+            text-align: left;
+            box-sizing: border-box;
+            padding-left: 10px;
+            line-height: 24px;
+            header {
+              height: 24px;
+              * {
+                display: inline-block;
+                font-size: 16px;
+                vertical-align: top;
+                height: 24px;
+                font-style: normal;
+              }
+              span {
+                margin-left: 16px;
+                padding: 0 6px;
+                color: rgba(26, 147, 74, 1);
+                background-color: rgba(26, 147, 74, 0.1);
+                border-radius: 8px;
+              }
+            }
+            > p:last-child {
+              color: rgba(153, 153, 153, 1);
+            }
+          }
         }
       }
     }

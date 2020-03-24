@@ -10,11 +10,15 @@ import echarts from "echarts";
 export default class ArcgisCore extends Vue {
   @Prop() private option!: JSX.ChartOption;
   @Prop({ default: "E_CHARTS" }) private chartId!: string;
+
   //    esri object <T>
   public chart: any;
+
+  //    mounted
   mounted() {
     this.initChart();
   }
+  
   //    initMap Promise<Boolean>
   private initChart(): void {
     this.chart = echarts.init(
@@ -26,3 +30,9 @@ export default class ArcgisCore extends Vue {
   }
 }
 </script>
+
+<style scoped lang="less">
+.common_chart {
+  flex: 1;
+}
+</style>

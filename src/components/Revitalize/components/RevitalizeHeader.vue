@@ -1,8 +1,5 @@
 <template>
-  <header class="revitalize_header">
-    <p>{{title}}</p>
-    <!-- <p>{{ltitle}}</p> -->
-  </header>
+  <div class="revitalize_header" />
 </template>
 
 <script lang="ts">
@@ -17,11 +14,11 @@ export default class RevitalizeHeader extends Vue {
 <style scoped lang="less">
 .revitalize_header {
   position: fixed;
-  top: 20px;
-  left: 40px;
-  // transform: translateX(-50%);
-  // text-shadow: 0px 6px 10px #000;
-  color: #0073f8;
+  width: 680px;
+  height: 140px;
+  top: -16px;
+  background-image: url(../imgs/header.png);
+  background-size: cover;
   z-index: 2;
   > p:first-child {
     font-size: 50px;

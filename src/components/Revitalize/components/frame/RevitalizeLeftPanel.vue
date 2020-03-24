@@ -1,39 +1,73 @@
 <template>
   <div class="revitalize_left">
-    <div>
-      <div>
-        <header>
-          <i>示范带总览</i>
-        </header>
-        <ul>
-          <li v-for="(item,index) in options.overview" :key="index">- {{item}}</li>
-        </ul>
+    <header>{{ title1 }}</header>
+    <div class="container" :style="{ flex: 1 }">
+      <div class="build">
+        <header>建设情况</header>
+        <div>
+          <ul>
+            <li v-for="(item, index) in options.overview" :key="index">
+              <div :style="{backgroundColor:item.c,color:item.f}">
+                <div :style="{borderRight:`1px ${item.f} dashed`}">
+                  <i>{{item.count}}</i>
+                  <i>{{item.unit}}</i>
+                </div>
+                <div>
+                  <span>{{item.time}}</span>
+                  <span>{{item.text}}</span>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="data">
+        <header>建设情况</header>
+        <div>
+          <div>
+            <header>实现投资-2019年</header>
+            <div>
+              <div class="blue">8881万</div>
+              <div>
+                <span>同比增长</span>
+                <span>+18.26%</span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <header>产出效益-2019年</header>
+            <div>
+              <div class="green">8881万</div>
+              <div>
+                <span>同比增长</span>
+                <span>+18.26%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="kind">
+        <header>项目类型占比</header>
+        <chartCore :option="options['project']" :chartId="options['project'].name + +new Date()" />
       </div>
     </div>
-    <div>
-      <div>
-        <header>
-          <i>平台用户增长趋势(人)</i>
-        </header>
-        <chartCore :option="options['rise']" :chartId="options['rise'].name+(+new Date())" />
+    <header>{{ title2 }}</header>
+    <div class="container">
+      <div class="user">
+        <header>用户总量</header>
+        <div>
+          <div>25,489人</div>
+          <div>
+            <span>男性40%</span>
+            <span>女性60%</span>
+          </div>
+        </div>
       </div>
-    </div>
-    <div>
-      <div>
-        <header>
-          <i>项目类型统计</i>
-        </header>
-        <chartCore :option="options['project']" :chartId="options['project'].name+(+new Date())" />
-      </div>
-    </div>
-    <div>
-      <div>
-        <header>
-          <i>喜好分析-用户</i>
-        </header>
+      <div class="preference">
+        <header>农旅喜好占比</header>
         <chartCore
           :option="options['preference']"
-          :chartId="options['preference'].name+(+new Date())"
+          :chartId="options['preference'].name + +new Date()"
         />
       </div>
     </div>
@@ -52,12 +86,14 @@ interface OptionHash {
   [elem: string]:
     | echarts.EChartOption
     | echarts.EChartsResponsiveOption
-    | string[];
+    | object[];
 }
 @Component({
   components: { ["chartCore"]: ChartCore }
 })
 export default class RevitalizeLeftPanel extends Vue {
+  private title1 = "乡村振兴示范带总览";
+  private title2 = "农旅融合平台用户分析";
   public options: OptionHash = {};
   created() {
     this.options["overview"] = overviewList;
@@ -73,69 +109,243 @@ export default class RevitalizeLeftPanel extends Vue {
 
 <style scoped lang="less">
 .revitalize_left {
-  width: 380px;
+  width: 420px;
   position: fixed;
-  bottom: 40px;
-  top: 88px;
+  bottom: 26px;
+  top: 120px;
   left: 40px;
-
-  > div {
+  background-color: #fff;
+  box-shadow: 0px 6px 15px #676767;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  > header {
     position: relative;
-    height: 25%;
+    background-image: url(../../imgs/title.png);
+    background-repeat: no-repeat;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 40px;
+    text-align: left;
+    height: 40px !important;
     box-sizing: border-box;
-    padding-top: 30px;
-    > div::before {
-      content: "";
-      position: absolute;
-      display: block;
-      bottom: 0;
-      left: -24px;
-      width: 50px;
-      height: 110%;
-      background: url(../../imgs/border.png);
-      background-size: 100% 100%;
-    }
+    padding-left: 12px;
+    color: #fff;
+  }
+  > .container {
+    margin-top: 8px;
+    box-sizing: border-box;
+    padding: 0px 12px;
+    display: flex;
+    flex-direction: column;
     > div {
-      position: relative;
-      border-radius: 20px;
-      background-color: #fff;
-      box-shadow: 0px 6px 15px #676767;
-      padding: 0 10px 0 20px;
-      height: 100%;
-      box-sizing: border-box;
       display: flex;
       flex-direction: column;
+      height: auto;
+      margin-bottom: 6px;
+      margin-top: 2px;
+      text-align: left;
+      > header:before {
+        content: "";
+        width: 20px;
+        height: 12px;
+        display: block;
+        position: absolute;
+        right: -22px;
+        top: 2px;
+        background-image: url(../../imgs/leaf.png);
+        background-size: cover;
+      }
       > header {
-        line-height: 46px;
+        display: inline-block;
+        font-size: 18px;
+        font-weight: bold;
         text-align: left;
-        height: 40px !important;
-        box-sizing: border-box;
-        padding-left: 14px;
-        i {
-          font-style: normal;
-        }
-        i:first-child {
-          font-size: 20px;
-          font-weight: bold;
-          color: #000;
-        }
+        line-height: 30px;
+        height: 30px;
+        color: rgba(26, 147, 74, 1);
+        position: relative;
+        width: max-content;
       }
+    }
+    /** 建设情况 */
+    .build {
       > div {
-        flex: 1;
-      }
-      > ul {
-        text-align: left;
-        flex: 1;
-        box-sizing: border-box;
-        padding: 0px 0 10px 2px;
-        list-style: none;
-        > li {
-          height: 20%;
-          color: rgba(0, 0, 0, 0.7);
-          cursor: pointer;
-          overflow: hidden;
+        > ul {
+          text-align: left;
+          > li:nth-child(1),
+          > li:nth-child(3) {
+            padding-right: 6px;
+          }
+          > li:nth-child(2),
+          > li:nth-child(4) {
+            padding-left: 6px;
+          }
+          > li {
+            display: inline-block;
+            width: 50%;
+            box-sizing: border-box;
+            padding: 4px 0;
+            > div {
+              height: 50px;
+              width: 100%;
+              display: flex;
+              box-sizing: border-box;
+              padding: 4px 6px;
+              border-radius: 8px;
+              > div:first-child {
+                width: 80px;
+                text-align: center;
+                border-right: 1px #ddd dashed;
+                > i {
+                  font-style: normal;
+                  font-weight: bold;
+                  display: inline-block;
+                  line-height: 46px;
+                }
+                > i:first-child {
+                  font-size: 30px;
+                }
+                > i:last-child {
+                  font-size: 12px;
+                }
+              }
+              > div:last-child {
+                box-sizing: border-box;
+                padding-left: 8px;
+                width: 110px;
+                > span {
+                  display: block;
+                  line-height: 22px;
+                }
+              }
+            }
+          }
         }
       }
+    }
+    /** 建设情况 */
+    .data {
+      display: block;
+      padding: 6px 0;
+      > div {
+        > div:last-child {
+          border-right: 0;
+          padding-left: 16px;
+        }
+        > div {
+          vertical-align: top;
+          text-align: left;
+          display: inline-block;
+          width: 50%;
+          box-sizing: border-box;
+          header {
+            font-size: 18px;
+            height: 36px;
+            line-height: 36px;
+            font-weight: bold;
+          }
+          > div {
+            > div {
+              display: inline-block;
+              text-align: left;
+              height: 40px;
+              line-height: 40px;
+              vertical-align: top;
+            }
+            .blue {
+              color: rgba(37, 151, 248, 1);
+            }
+            .green {
+              color: rgba(248, 118, 37, 1);
+            }
+            > div:first-child {
+              width: 90px;
+              font-size: 26px;
+              font-family: Tahoma;
+            }
+            > div:last-child {
+              width: 60px;
+              line-height: unset;
+              box-sizing: border-box;
+              > span {
+                display: inline-block;
+                width: 100%;
+                height: 20px;
+                line-height: 20px;
+                font-size: 12px;
+              }
+              > span:first-child {
+                color: rgba(153, 153, 153, 1);
+              }
+              > span:last-child {
+                color: rgba(17, 17, 17, 1);
+              }
+            }
+          }
+        }
+      }
+    }
+    /** 项目类型占比 */
+    .kind {
+      height: 180px;
+      display: flex;
+      flex-direction: column;
+    }
+    /** 用户总量 */
+    .user {
+      height: 80px;
+      border-bottom: 1pt rgba(146, 199, 149, 1) dashed;
+      > div {
+        display: flex;
+        > div {
+          height: 40px;
+          line-height: 40px;
+        }
+        > div:first-child {
+          width: 120px;
+          font-size: 20px;
+          color: rgba(26, 147, 74, 1);
+          font-weight: bold;
+        }
+        > div:last-child {
+          width: 276px;
+          box-sizing: border-box;
+          padding: 0 13px;
+          position: relative;
+          padding: 5px;
+          span {
+            position: absolute;
+            height: 30px;
+            line-height: 30px;
+            border-radius: 15px;
+            background-color: rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+            color: rgba(255, 255, 255, 1);
+          }
+          span:first-child {
+            width: 100%;
+            left: 0;
+            z-index: 3;
+            padding-left: 10px;
+            background-color: rgba(37, 151, 248, 1);
+          }
+          span:last-child {
+            width: 60%;
+            right: 0;
+            z-index: 4;
+            padding-right: 10px;
+            text-align: right;
+            box-shadow: -2px 0px 4px 0px rgba(0, 0, 0, 0.6);
+            background-color: rgba(248, 173, 37, 1);
+          }
+        }
+      }
+    }
+    /** 农旅喜好占比 */
+    .preference {
+      height: 180px;
     }
   }
 }

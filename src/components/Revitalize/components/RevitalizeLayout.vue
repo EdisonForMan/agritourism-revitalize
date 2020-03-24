@@ -1,5 +1,6 @@
 <template>
   <div class="revitalize_layout">
+    <top />
     <left />
     <scroll />
     <transition name="fade">
@@ -17,10 +18,12 @@ import RevitalizeScroll from "./frame/RevitalizeScroll.vue";
 import RevitalizeLeftPanel from "./frame/RevitalizeLeftPanel.vue";
 import RevitalizeProjectPanel from "./frame/RevitalizeProjectPanel.vue";
 import RevitalizeLinePanel from "./frame/RevitalizeLinePanel.vue";
+import RevitalizeTopPanel from "./frame/RevitalizeTopPanel.vue";
 
 @Component({
   components: {
     ["scroll"]: RevitalizeScroll,
+    ["top"]: RevitalizeTopPanel,
     ["left"]: RevitalizeLeftPanel,
     ["project"]: RevitalizeProjectPanel,
     ["dline"]: RevitalizeLinePanel
@@ -30,11 +33,14 @@ export default class RevitalizeLayout extends Vue {
   private doLine = true;
   mounted() {
     const { $hub } = this as any;
-    $hub.$on("sfd-dom", () => {
+    $hub.$on("sfd-on", (sfdName: string) => {
       this.doLine = true;
     });
-    $hub.$on("project-dom", () => {
+    $hub.$on("sfd-dom", (sfdName: string) => {
       this.doLine = false;
+    });
+    $hub.$on("project-dom", () => {
+      // this.doLine = false;
     });
   }
 }

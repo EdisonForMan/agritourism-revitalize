@@ -9,6 +9,7 @@ import { LAYER_IMAGE, MAP_INIT_OPTION, spatialReference } from "@/config";
 @Component({})
 export default class ArcgisCore extends Vue {
   @Prop({ default: "ARCGIS_MAP" }) private mapId!: number;
+  
   //    esri object <T>
   public map: any;
   public view: any;
