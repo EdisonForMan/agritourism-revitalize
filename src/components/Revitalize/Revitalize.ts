@@ -6,5 +6,4 @@ export interface labelValue {
 }
 export function doHello<T>(context: any, n: T): void {
     context.extra = n;
-    console.log(n);
 }

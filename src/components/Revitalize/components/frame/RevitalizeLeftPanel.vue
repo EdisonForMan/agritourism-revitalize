@@ -1,6 +1,9 @@
 <template>
-  <div class="revitalize_left">
-    <header>{{ title1 }}</header>
+  <div :class="`revitalize_left ${t?`normal`:`little`}`">
+    <header>
+      {{ title1 }}
+      <span :class="`t ${t?``:`turn`}`" @click="()=>{this.t=!this.t}" />
+    </header>
     <div class="container" :style="{ flex: 1 }">
       <div class="build">
         <header>建设情况</header>
@@ -22,25 +25,25 @@
         </div>
       </div>
       <div class="data">
-        <header>建设情况</header>
+        <header>投资及效益</header>
         <div>
           <div>
             <header>实现投资-2019年</header>
             <div>
-              <div class="blue">8881万</div>
+              <div class="blue">70.63亿</div>
               <div>
                 <span>同比增长</span>
-                <span>+18.26%</span>
+                <span>+46.09%</span>
               </div>
             </div>
           </div>
           <div>
             <header>产出效益-2019年</header>
             <div>
-              <div class="green">8881万</div>
+              <div class="green">- 万</div>
               <div>
                 <span>同比增长</span>
-                <span>+18.26%</span>
+                <span>- %</span>
               </div>
             </div>
           </div>
@@ -53,7 +56,7 @@
     </div>
     <header>{{ title2 }}</header>
     <div class="container">
-      <div class="user">
+      <!-- <div class="user">
         <header>用户总量</header>
         <div>
           <div>25,489人</div>
@@ -62,9 +65,16 @@
             <span>女性60%</span>
           </div>
         </div>
-      </div>
+      </div>-->
       <div class="preference">
         <header>农旅喜好占比</header>
+        <ul class="list">
+          <li v-for="(item,index) in data" :key="index">
+            <span>{{item.name}}</span>
+            <span>{{item.count}}个</span>
+            <span>{{item.value}}%</span>
+          </li>
+        </ul>
         <chartCore
           :option="options['preference']"
           :chartId="options['preference'].name + +new Date()"
@@ -80,7 +90,7 @@ import ChartCore from "@/components/Core/ChartCore.vue";
 import { overviewList } from "./options/overview";
 import { riseOption } from "./options/line";
 import { projectOption } from "./options/pie";
-import { radarOption } from "./options/radar";
+import { radarOption, radarData } from "./options/radar";
 //  option interface
 interface OptionHash {
   [elem: string]:
@@ -94,24 +104,41 @@ interface OptionHash {
 export default class RevitalizeLeftPanel extends Vue {
   private title1 = "乡村振兴示范带总览";
   private title2 = "农旅融合平台用户分析";
+  private t = true;
   public options: OptionHash = {};
+  public data: Array<object> = radarData;
   created() {
     this.options["overview"] = overviewList;
-    this.options["rise"] = this.doOption(riseOption, {});
-    this.options["project"] = this.doOption(projectOption, {});
-    this.options["preference"] = this.doOption(radarOption, {});
+    this.options["rise"] = this.doOption(riseOption);
+    this.options["project"] = this.doOption(projectOption);
+    this.options["preference"] = this.doOption(radarOption);
   }
-  public doOption(riseOption: any, data?: object): echarts.EChartOption {
+  public doOption(riseOption: any): echarts.EChartOption {
     return riseOption;
+  }
+  mounted() {
+    this.eventRegister();
+  }
+  private eventRegister(): void {
+    const { $hub } = this as any;
+    $hub.$on("sfd-on", (sfd: JSX.DataSfd) => {
+      !sfd.sfd.shallLine && (this.t = false);
+    });
+    $hub.$on("project-on", () => {
+      this.t = false;
+    });
+    $hub.$on("back-sfd", () => {
+      this.t = true;
+    });
   }
 }
 </script>
 
 <style scoped lang="less">
 .revitalize_left {
+  transition: all 0.6s;
   width: 420px;
   position: fixed;
-  bottom: 26px;
   top: 120px;
   left: 40px;
   background-color: #fff;
@@ -132,6 +159,21 @@ export default class RevitalizeLeftPanel extends Vue {
     box-sizing: border-box;
     padding-left: 12px;
     color: #fff;
+    > .t {
+      display: block;
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      height: 20px;
+      width: 20px;
+      background: url(../../imgs/garrow.png);
+      background-size: 100% 100%;
+      cursor: pointer;
+      transition: all 0.5s;
+    }
+    > .turn {
+      transform: rotate(180deg);
+    }
   }
   > .container {
     margin-top: 8px;
@@ -228,7 +270,7 @@ export default class RevitalizeLeftPanel extends Vue {
     /** 建设情况 */
     .data {
       display: block;
-      padding: 6px 0;
+      padding: 12px 0;
       > div {
         > div:last-child {
           border-right: 0;
@@ -261,8 +303,8 @@ export default class RevitalizeLeftPanel extends Vue {
               color: rgba(248, 118, 37, 1);
             }
             > div:first-child {
-              width: 90px;
-              font-size: 26px;
+              width: 100px;
+              font-size: 24px;
               font-family: Tahoma;
             }
             > div:last-child {
@@ -289,7 +331,7 @@ export default class RevitalizeLeftPanel extends Vue {
     }
     /** 项目类型占比 */
     .kind {
-      height: 180px;
+      height: 240px;
       display: flex;
       flex-direction: column;
     }
@@ -345,8 +387,36 @@ export default class RevitalizeLeftPanel extends Vue {
     }
     /** 农旅喜好占比 */
     .preference {
-      height: 180px;
+      height: 240px;
+      position: relative;
+      .list {
+        position: absolute;
+        top: 50px;
+        left: 4px;
+        list-style: none;
+        > li {
+          height: 30px;
+          line-height: 30px;
+          > span {
+            font-family: Helvetica Neue;
+            color: #666666;
+            font-size: 12px;
+            margin-right: 10px;
+          }
+          > span:last-child {
+            color: #1a934a;
+          }
+        }
+      }
     }
   }
+}
+.normal {
+  bottom: 26px !important;
+  height: unset !important;
+}
+.little {
+  bottom: unset !important;
+  height: 39px !important;
 }
 </style>

@@ -1,12 +1,18 @@
+const s = [
+    { name: "产业兴旺", count: 301 },
+    { name: "治理有效", count: 57 },
+    { name: "生态宜居", count: 320 },
+    { name: "生活富裕", count: 18 },
+    { name: "乡风文明", count: 76 },
+    { name: "环境优美", count: 6 },
+    { name: "农村改革", count: 16 },
+]
+const sum = 794;
 const projectData = {
-    legend: ["产业兴旺", "生态宜居", "美丽交通", "乡风文明", "区域旅游"],
-    s: [
-        { name: "产业兴旺", value: 42.5 },
-        { name: "生态宜居", value: 28.8 },
-        { name: "美丽交通", value: 5.0 },
-        { name: "乡风文明", value: 15.0 },
-        { name: "区域旅游", value: 8.7 },
-    ]
+    legend: ["产业兴旺", "治理有效", "生态宜居", "生活富裕", "乡风文明", "环境优美", "农村改革"],
+    s: s.map((item: any) => {
+        return { ...item, value: ((item.count / sum) * 100).toFixed(1) }
+    })
 }
 const projectOption = {
     name: "项目类型统计",
@@ -24,7 +30,7 @@ const projectOption = {
         top: '36%',
         right: '18%'
     }, {
-        text: "653个",
+        text: `${sum}个`,
         textStyle: {
             color: 'rgba(4, 146, 41, 1)',
             fontWeight: 'bold',
@@ -44,6 +50,7 @@ const projectOption = {
         left: 25,
         top: "center",
         textStyle: {
+            fontSize: 14,
             color: 'rgba(0,0,0,0.5)'
         },
         formatter: (name: any) => {
@@ -55,7 +62,7 @@ const projectOption = {
         {
             name: '项目',
             type: 'pie',
-            radius: ['70%', '90%'],
+            radius: ['55%', '75%'],
             center: ['70%', '50%'],
             avoidLabelOverlap: false,
             data: projectData.s,

@@ -12,13 +12,33 @@ declare global {
     //  echart option
     interface ChartOption { xAxis: Array<any>, yAxis?: Array<any>, series: Array<any>, color?: string[] }
     //  mock data
-    interface BottomSingle { sfdName: string, videos: string[], imgs: string[] }
+    interface SingleSfd {
+      sfdName: string, videos: string[], imgs: string[], shallLine?: boolean
+    }
     interface ScrollSfd {
-      [elem: string]: BottomSingle
+      [elem: string]: SingleSfd
+    }
+    interface SingleProject { projectName?: string, sfdName?: string, videos: string[], nowImgs: string[], futureImgs?: string[] }
+    interface ScrollProject {
+      [elem: string]: SingleProject
+    }
+    //  sfd
+    interface DataSfd {
+      sfd: SingleSfd,
+      attributes: object,
+      geometry: MapPoint
+    }
+    interface DataProject {
+      project: SingleProject,
+      attributes: object
     }
     //  esri Interface
     interface EsriObject {
       [elem: string]: any
+    }
+    interface MapPoint {
+      x: number;
+      y: number;
     }
   }
 }

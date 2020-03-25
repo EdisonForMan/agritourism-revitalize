@@ -1,13 +1,13 @@
 <template>
   <div class="revitalize_layout">
-    <top />
+    <top v-if="false"/>
     <left />
     <scroll />
     <transition name="fade">
-      <project v-if="!doLine" />
+      <project v-show="!doLine" />
     </transition>
     <transition name="fade">
-      <dline v-if="doLine" />
+      <dline v-show="doLine" />
     </transition>
   </div>
 </template>
@@ -32,15 +32,20 @@ import RevitalizeTopPanel from "./frame/RevitalizeTopPanel.vue";
 export default class RevitalizeLayout extends Vue {
   private doLine = true;
   mounted() {
+    this.eventRegister();
+  }
+  private eventRegister(): void {
     const { $hub } = this as any;
-    $hub.$on("sfd-on", (sfdName: string) => {
+    $hub.$on("sfd-on", () => {
+      //  点击地图或点击项目轮播,显示精品带详情
       this.doLine = true;
     });
-    $hub.$on("sfd-dom", (sfdName: string) => {
-      this.doLine = false;
+    $hub.$on("back-sfd", () => {
+      //  返回到精品示范带,与sfd-on区分
+      this.doLine = true;
     });
-    $hub.$on("project-dom", () => {
-      // this.doLine = false;
+    $hub.$on("project-on", () => {
+      this.doLine = false;
     });
   }
 }
@@ -52,6 +57,7 @@ export default class RevitalizeLayout extends Vue {
   bottom: 0px;
   left: 0px;
   width: 100%;
+  z-index: 3;
 }
 
 .fade-enter-active,

@@ -3,14 +3,17 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
+import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import echarts from "echarts";
 
 @Component({})
 export default class ArcgisCore extends Vue {
   @Prop() private option!: JSX.ChartOption;
   @Prop({ default: "E_CHARTS" }) private chartId!: string;
-
+  @Watch("option")
+  optionChange(value: JSX.ChartOption) {
+    this.chart.setOption(value, true);
+  }
   //    esri object <T>
   public chart: any;
 
@@ -18,7 +21,7 @@ export default class ArcgisCore extends Vue {
   mounted() {
     this.initChart();
   }
-  
+
   //    initMap Promise<Boolean>
   private initChart(): void {
     this.chart = echarts.init(
@@ -26,7 +29,7 @@ export default class ArcgisCore extends Vue {
         | HTMLDivElement
         | HTMLCanvasElement
     );
-    this.chart.setOption(this.option);
+    this.chart.setOption(this.option, true);
   }
 }
 </script>
