@@ -98,7 +98,7 @@ export default class RevitalizeLinePanel extends Vue {
   private sfd?: any = {};
   private attributes?: any = {};
   private projectList: Array<any> = [];
-  private company = "温州市农业农村局 建设 温州市设计集团 技术支持";
+  private company = "温州市农业农村局建设 温州设计集团技术支持";
   private t = true;
   private option = projectOption;
   @State("projectData") stateProjectData!: JSX.ScrollProject;

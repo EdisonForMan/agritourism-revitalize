@@ -94,7 +94,7 @@ export default class RevitalizeProjectPanel extends Vue {
   private title?: string = "永嘉县雁楠逸园";
   private project?: any = {};
   private attributes?: any = {};
-  private company = "温州市农业农村局 建设 温州市设计集团 技术支持";
+  private company = "温州市农业农村局建设 温州设计集团技术支持";
   private FixedImgsData: Array<any> = [];
   private FixedFutureData: Array<any> = [];
   private doSwiper = false;
