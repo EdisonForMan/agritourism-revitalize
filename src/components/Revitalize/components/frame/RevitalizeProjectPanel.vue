@@ -23,7 +23,11 @@
           <ul class="text_ul">
             <li>
               <p>项目名称</p>
-              <p class="goVr" @click="goVr">查看全景</p>
+              <p
+                v-if="(attributes.VR && attributes.VR != 'Null') || (attributes.全景 && attributes.全景 != 'Null')"
+                class="goVr"
+                @click="goVr"
+              >查看全景</p>
               <p>{{attributes.NAME_1 || attributes.名称}}</p>
             </li>
             <!-- <li>

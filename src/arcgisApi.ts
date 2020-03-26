@@ -7,7 +7,7 @@ export function arcgisApi(fn: Function) {
     [
       "esri/Map",
       "esri/views/MapView",
-      //   "esri/layers/VectorTileLayer",
+      // "esri/layers/VectorTileLayer",
       //   "esri/layers/TileLayer",
       //   "esri/layers/FeatureLayer",
       "esri/layers/MapImageLayer",
@@ -23,7 +23,7 @@ export function arcgisApi(fn: Function) {
     ([
       Map,
       MapView,
-      //   VectorTileLayer,
+      // VectorTileLayer,
       //   TileLayer,
       //   FeatureLayer,
       MapImageLayer,
@@ -38,8 +38,7 @@ export function arcgisApi(fn: Function) {
         fn({
           Map,
           MapView,
-          //   Legend,
-          //   VectorTileLayer,
+          // VectorTileLayer,
           //   TileLayer,
           //   FeatureLayer,
           MapImageLayer,

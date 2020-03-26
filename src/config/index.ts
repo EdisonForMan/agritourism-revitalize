@@ -16,8 +16,8 @@ const CONFIG_DEV = {
 const spatialReference = { wkid: 4490 };
 //  地图初始配置
 const MAP_INIT_OPTION = {
-  center: [120.86137599886428, 28.1246809092924],
-  zoom: 16
+  // center: [120.86137599886428, 28.1246809092924],
+  zoom: 10.5
 };
 //  图钉
 const PIN = `${CONFIG_DEV.DOMAIN}/山水雁南照片/图钉.png`;

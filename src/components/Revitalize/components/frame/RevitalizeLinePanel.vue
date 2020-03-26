@@ -368,6 +368,8 @@ export default class RevitalizeLinePanel extends Vue {
     /** 建设项目列表 */
     .project {
       flex: 1;
+      min-height: 300px;
+      overflow: hidden;
       .projectList::-webkit-scrollbar {
         display: none;
       }
