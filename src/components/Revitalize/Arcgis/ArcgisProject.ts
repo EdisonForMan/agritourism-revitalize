@@ -9,7 +9,7 @@ interface MapPoint {
 interface Event {
   mapPoint: MapPoint;
 }
-import { LAYER_SHDT, LAYER_PROJECT } from "@/config/index";
+import { LAYER_SHDT, LAYER_PROJECT, PIN } from "@/config/index";
 
 function doMassLocation(context: JSX.ElementClass, point?: MapPoint) {
   (context as any).view.goTo(point);
@@ -47,8 +47,8 @@ function doProjectLocation(context: JSX.ElementClass, geometry?: any) {
   const { Graphic, Point } = $ARCGIS_API;
   view.graphics.removeAll();
   const symbol = {
-    type: "picture-marker", // autocasts as new PictureMarkerSymbol()
-    url: "http://wznl.wznync.cn/山水雁南照片/图钉.png",
+    type: "picture-marker",
+    url: PIN,
     width: "50px",
     height: "50px",
     yoffset: 16
