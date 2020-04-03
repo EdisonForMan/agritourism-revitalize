@@ -17,8 +17,8 @@ const $vue: JSX.ElementClass = new Vue({
 }).$mount("#app");
 (Window as any).$vue = $vue;
 
-arcgisApi((object: JSX.EsriObject) => {
-  Vue.prototype.$ARCGIS_API = object;
+arcgisApi((arcgisApi: JSX.EsriObject) => {
+  Vue.prototype.$ARCGIS_API = arcgisApi;
   (Window as any).$vue.$store.state.arcgisDone = true;
 });
 
