@@ -1,5 +1,6 @@
 <template>
-  <div class="revitalize_line" :id="MapId" />
+  <!-- <div class="revitalize_line" :id="MapId" /> -->
+  <div class="revitalize_line_map" @click="doDivMapJump" />
 </template>
 
 <script lang="ts">
@@ -39,6 +40,9 @@ export default class ArcgisLine extends Mixins(ArcgisCore) {
       await doMassQuery(this, sfd);
     });
   }
+  private doDivMapJump(): void {
+    (document.getElementsByClassName("SingleSfd")[0] as HTMLBaseElement).click();
+  }
 }
 </script>
 
@@ -49,5 +53,14 @@ export default class ArcgisLine extends Mixins(ArcgisCore) {
   left: 0;
   width: 100%;
   height: 100%;
+}
+.revitalize_line_map {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url(../imgs/lineMap.png);
+  background-size: cover;
 }
 </style>
