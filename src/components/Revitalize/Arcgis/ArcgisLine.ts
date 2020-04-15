@@ -21,7 +21,7 @@ function fetchCenter(paths: Array<[]>): MapPoint {
   const index: number = Math.floor(path.length / 2);
   const mapPoint: MapPoint = {
     x: path[index][0],
-    y: path[index][1]
+    y: path[index][1],
   };
   return mapPoint;
 }
@@ -36,7 +36,7 @@ function doMassIdentify(
   context: JSX.ElementClass,
   point?: MapPoint
 ): Promise<boolean> {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     const { $ARCGIS_API, view, $hub, $store } = context as any;
     const { IdentifyTask, IdentifyParameters } = $ARCGIS_API;
     const identifyTask = new IdentifyTask(LAYER_SFD);
@@ -46,7 +46,7 @@ function doMassIdentify(
       height: view.height,
       returnGeometry: true,
       geometry: point,
-      mapExtent: view.extent
+      mapExtent: view.extent,
     });
     identifyTask.execute(params).then(({ results }: any) => {
       results.length &&
@@ -55,10 +55,10 @@ function doMassIdentify(
         $hub.$emit("sfd-on", {
           sfd: {
             ...$store.state.sfdData[results[0].feature.attributes.xmname],
-            sfdName: results[0].feature.attributes.xmname
+            sfdName: results[0].feature.attributes.xmname,
           },
           attributes: results[0].feature.attributes,
-          geometry: results[0].feature.geometry
+          geometry: results[0].feature.geometry,
         });
     });
     resolve(true);
@@ -75,14 +75,14 @@ function doMassQuery(
   context: JSX.ElementClass,
   sfd: JSX.SingleSfd
 ): Promise<boolean> {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     const { $ARCGIS_API, view, $hub } = context as any;
     const { QueryTask, Query } = $ARCGIS_API;
     const queryTask = new QueryTask(LAYER_SFD + "/0");
     const params = new Query({
       where: `xmname like '%${sfd.sfdName}%'`,
       outFields: ["*"],
-      returnGeometry: true
+      returnGeometry: true,
     });
     queryTask.execute(params).then(({ features }: any) => {
       features.length &&
@@ -90,7 +90,7 @@ function doMassQuery(
         $hub.$emit("sfd-on", {
           sfd,
           attributes: features[0].attributes,
-          geometry: features[0].geometry
+          geometry: features[0].geometry,
         });
     });
     resolve(true);
@@ -104,7 +104,7 @@ function doMassSymbol(context: JSX.ElementClass): void {
   const params = new Query({
     where: "1=1",
     outFields: ["xmname"],
-    returnGeometry: true
+    returnGeometry: true,
   });
   queryTask.execute(params).then(({ features }: any) => {
     features.length &&
@@ -113,16 +113,16 @@ function doMassSymbol(context: JSX.ElementClass): void {
           new Graphic({
             geometry: new Point(fetchCenter(item.geometry.paths)),
             symbol: {
-              text: item.attributes.xmname.slice(0,4),
+              text: item.attributes.xmname.slice(0, 4),
               type: "text", // autocasts as new TextSymbol()
               color: [255, 255, 255, 0.85],
               haloColor: "grey",
               haloSize: 1,
               font: {
                 size: 14,
-                weight: "bold"
-              }
-            }
+                weight: "bold",
+              },
+            },
           })
         );
       });
@@ -135,7 +135,7 @@ function doMassSymbol(context: JSX.ElementClass): void {
  * @returns {Promise<boolean>}
  */
 function doMassMap(context: JSX.ElementClass): Promise<boolean> {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     const { $ARCGIS_API, map, view } = context as any;
     const { MapImageLayer } = $ARCGIS_API;
     map.add(new MapImageLayer({ id: "LAYER_DTFW", url: LAYER_DTFW }));

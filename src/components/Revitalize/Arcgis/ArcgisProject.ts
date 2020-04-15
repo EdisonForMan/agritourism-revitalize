@@ -32,7 +32,7 @@ function fetchCenter([ring]: Array<any>): object {
   const center: object = {
     x: _x / count,
     y: _y / count,
-    type: "point"
+    type: "point",
   };
   return center;
 }
@@ -51,11 +51,11 @@ function doProjectLocation(context: JSX.ElementClass, geometry?: any) {
     url: PIN,
     width: "50px",
     height: "50px",
-    yoffset: 16
+    yoffset: 16,
   };
   const graphic = new Graphic({
     geometry: new Point(geometry),
-    symbol
+    symbol,
   });
   view.graphics.add(graphic);
 }
@@ -70,7 +70,7 @@ function doMassIdentify(
   context: JSX.ElementClass,
   point?: MapPoint
 ): Promise<boolean> {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     const { $ARCGIS_API, view, $hub, $store } = context as any;
     const { IdentifyTask, IdentifyParameters } = $ARCGIS_API;
     const identifyTask = new IdentifyTask(LAYER_PROJECT);
@@ -80,7 +80,7 @@ function doMassIdentify(
       height: view.height,
       returnGeometry: true,
       geometry: point,
-      mapExtent: view.extent
+      mapExtent: view.extent,
     });
     identifyTask.execute(params).then(({ results }: any): void => {
       if (results.length) {
@@ -91,9 +91,9 @@ function doMassIdentify(
         $hub.$emit("project-on", {
           project: {
             ...$store.state.projectData[results[0].feature.attributes.名称],
-            projectName: results[0].feature.attributes.名称
+            projectName: results[0].feature.attributes.名称,
           },
-          attributes: results[0].feature.attributes
+          attributes: results[0].feature.attributes,
         });
       }
     });
@@ -111,14 +111,14 @@ function doMassQuery(
   context: JSX.ElementClass,
   project: JSX.SingleProject
 ): Promise<boolean> {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     const { $ARCGIS_API, view, $hub } = context as any;
     const { QueryTask, Query } = $ARCGIS_API;
     const queryTask = new QueryTask(LAYER_PROJECT + "/0");
     const params = new Query({
       where: `NAME_1 like '%${project.projectName}%'`,
       outFields: ["*"],
-      returnGeometry: true
+      returnGeometry: true,
     });
     queryTask.execute(params).then(({ features }: any) => {
       if (features.length) {
@@ -126,9 +126,9 @@ function doMassQuery(
         $hub.$emit("project-on", {
           project: {
             ...project,
-            projectName: features[0].attributes.NAME_1
+            projectName: features[0].attributes.NAME_1,
           },
-          attributes: features[0].attributes
+          attributes: features[0].attributes,
         });
       }
     });
@@ -146,19 +146,19 @@ function doMassQueryBySfd(
   context: JSX.ElementClass,
   sfdName: string
 ): Promise<any> {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     const { $ARCGIS_API } = context as any;
     const { QueryTask, Query } = $ARCGIS_API;
     const queryTask = new QueryTask(LAYER_PROJECT + "/0");
     const params = new Query({
       where: `1=1`,
       outFields: ["fenlei"],
-      returnGeometry: false
+      returnGeometry: false,
     });
     queryTask.execute(params).then(({ features }: any) => {
       const data: any = {
         obj: {},
-        sum: 0
+        sum: 0,
       };
       if (features.length) {
         features.map(({ attributes }: any) => {
@@ -181,13 +181,13 @@ function doMassQueryBySfd(
  * @returns {Promise<boolean>}
  */
 function doMassMap(context: JSX.ElementClass): Promise<boolean> {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     const { $ARCGIS_API, map, view } = context as any;
     const { MapImageLayer } = $ARCGIS_API;
     map.add(
       new MapImageLayer({
         id: "LAYER_SHDT",
-        url: LAYER_SHDT
+        url: LAYER_SHDT,
       })
     );
     view.on("click", ({ mapPoint }: Event) => {

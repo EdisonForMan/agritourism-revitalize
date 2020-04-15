@@ -45,12 +45,11 @@ export default class RevitalizeHeader extends Vue {
   @Watch("stateArcgisDone")
   async arcgisDoneChange(value: boolean) {
     const arr = this.FixedSfdData;
-    if (value) {
-      //  默认[山水雁楠精品带]
+    //  默认[山水雁楠精品带]
+    value &&
       setTimeout(() => {
         this.goSfd(arr[0][0].sfdName, 0, 0, true);
       }, 1);
-    }
   }
   get FixedSfdData(): Array<JSX.ScrollSfd> {
     const arr: Array<any> = [];

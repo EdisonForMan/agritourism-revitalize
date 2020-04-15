@@ -14,7 +14,7 @@ Vue.prototype.$jq = (Window as any).$;
 const $vue: JSX.ElementClass = new Vue({
   router,
   store,
-  render: h => h(App)
+  render: (h) => h(App),
 }).$mount("#app");
 (Window as any).$vue = $vue;
 

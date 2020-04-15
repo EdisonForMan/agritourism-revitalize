@@ -1,6 +1,6 @@
 <template>
   <div class="revitalize_layout">
-    <top v-if="false"/>
+    <top v-if="false" />
     <left />
     <scroll />
     <transition name="fade">

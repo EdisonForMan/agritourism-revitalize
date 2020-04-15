@@ -41,7 +41,9 @@ export default class ArcgisLine extends Mixins(ArcgisCore) {
     });
   }
   private doDivMapJump(): void {
-    (document.getElementsByClassName("SingleSfd")[0] as HTMLBaseElement).click();
+    (document.getElementsByClassName(
+      "SingleSfd"
+    )[0] as HTMLBaseElement).click();
   }
 }
 </script>

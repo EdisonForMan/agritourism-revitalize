@@ -3,11 +3,11 @@ const ratioData = [
   { value: 24.0, name: "亲子", count: 17192 },
   { value: 17.1, name: "节气", count: 12294 },
   { value: 16.0, name: "观赏", count: 11500 },
-  { value: 12.5, name: "农耕", count: 8973 }
+  { value: 12.5, name: "农耕", count: 8973 },
 ];
 const indicator: Array<any> = [];
 const showData: Array<any> = [];
-ratioData.map(item => {
+ratioData.map((item) => {
   indicator.push({ name: item.name, max: 35 });
   showData.push(Number(item.value));
 });
@@ -19,7 +19,7 @@ export const radarOption = {
     left: 35,
     bottom: 0,
     right: 20,
-    containLabel: true
+    containLabel: true,
   },
   tooltip: {},
   radar: {
@@ -30,17 +30,17 @@ export const radarOption = {
     splitNumber: 5,
     name: {
       color: "#666666",
-      fontSize: 14
+      fontSize: 14,
     },
     splitLine: {
       show: true,
       lineStyle: {
-        opacity: 1
-      }
+        opacity: 1,
+      },
     },
     axisLine: {
-      lineStyle: {}
-    }
+      lineStyle: {},
+    },
   },
   series: [
     {
@@ -50,13 +50,13 @@ export const radarOption = {
       areaStyle: {
         normal: {
           opacity: 0.6,
-          color: "rgba(6,178,92,1)"
-        }
+          color: "rgba(6,178,92,1)",
+        },
       },
       lineStyle: {
-        width: 0
+        width: 0,
       },
-      data: [showData]
-    }
-  ]
+      data: [showData],
+    },
+  ],
 };

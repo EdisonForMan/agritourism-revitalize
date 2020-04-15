@@ -7,47 +7,47 @@ export function arcgisApi(fn: Function) {
     [
       "esri/Map",
       "esri/views/MapView",
-      // "esri/layers/VectorTileLayer",
-      //   "esri/layers/TileLayer",
-      //   "esri/layers/FeatureLayer",
+      //    "esri/layers/VectorTileLayer",
+      //    "esri/layers/TileLayer",
+      //    "esri/layers/FeatureLayer",
       "esri/layers/MapImageLayer",
       "esri/tasks/QueryTask",
       "esri/tasks/support/Query",
       "esri/tasks/IdentifyTask",
       "esri/tasks/support/IdentifyParameters",
       "esri/geometry/Point",
-      "esri/Graphic"
+      "esri/Graphic",
     ],
     ARCGIS_OPTION
   ).then(
     ([
       Map,
       MapView,
-      // VectorTileLayer,
-      //   TileLayer,
-      //   FeatureLayer,
+      //    VectorTileLayer,
+      //    TileLayer,
+      //    FeatureLayer,
       MapImageLayer,
       QueryTask,
       Query,
       IdentifyTask,
       IdentifyParameters,
       Point,
-      Graphic
+      Graphic,
     ]) => {
       fn &&
         fn({
           Map,
           MapView,
-          // VectorTileLayer,
-          //   TileLayer,
-          //   FeatureLayer,
+          //    VectorTileLayer,
+          //    TileLayer,
+          //    FeatureLayer,
           MapImageLayer,
           QueryTask,
           Query,
           IdentifyTask,
           IdentifyParameters,
           Point,
-          Graphic
+          Graphic,
         });
     }
   );
